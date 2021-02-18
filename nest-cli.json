@@ -1,4 +1,30 @@
 {
   "collection": "@nestjs/schematics",
-  "sourceRoot": "src"
+  "sourceRoot": "apps/rest-api/src",
+  "monorepo": true,
+  "root": "apps/rest-api",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/rest-api/tsconfig.app.json"
+  },
+  "projects": {
+    "rest-api": {
+      "type": "application",
+      "root": "apps/rest-api",
+      "entryFile": "main",
+      "sourceRoot": "apps/rest-api/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/rest-api/tsconfig.app.json"
+      }
+    },
+    "graphql-api": {
+      "type": "application",
+      "root": "apps/graphql-api",
+      "entryFile": "main",
+      "sourceRoot": "apps/graphql-api/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/graphql-api/tsconfig.app.json"
+      }
+    }
+  }
 }
