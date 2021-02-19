@@ -8,7 +8,7 @@ import { UpdateAuthorInput } from './dto/update-author.input';
 export class AuthorsService {
   private authors: Author[] = [];
 
-  async findOneById(id: number): Promise<Author> {
+  findOneById(id: number): Author {
     const author = this.authors.find((author) => author.id === id);
     if (!author) {
       throw new NotFoundException('Not Found Author');
@@ -16,11 +16,11 @@ export class AuthorsService {
     return author as Author;
   }
 
-  async findAll(): Promise<Author[]> {
+  findAll(): Author[] {
     return this.authors;
   }
 
-  async create(input: CreateAuthorInput): Promise<Author> {
+  create(input: CreateAuthorInput): Author {
     const newAuthor = {
       id: this.authors.length + 1,
       ...input,
@@ -29,16 +29,16 @@ export class AuthorsService {
     return newAuthor;
   }
 
-  async delete(id: number): Promise<Author> {
-    const deletedAuthor = await this.findOneById(id);
+  delete(id: number): Author {
+    const deletedAuthor = this.findOneById(id);
     this.authors = this.authors.filter((author) => author.id !== id);
     return deletedAuthor;
   }
 
-  async update(input: UpdateAuthorInput): Promise<Author> {
+  update(input: UpdateAuthorInput): Author {
     const { id } = input;
-    const findedAuthor = await this.findOneById(id);
-    await this.delete(id);
+    const findedAuthor = this.findOneById(id);
+    this.delete(id);
     const updatedAuthor = {
       ...findedAuthor,
       ...input,

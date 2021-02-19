@@ -23,23 +23,22 @@ export class AuthorsResolver {
   }
 
   @Query((returns) => [Author], { name: 'authors' })
-  findAll(): Promise<Author[]> {
+  findAll(): Author[] {
     return this.authorsService.findAll();
   }
 
   @Mutation((returns) => Author, { name: 'createAuthor' })
-  async create(@Args('input') input: CreateAuthorInput): Promise<Author> {
+  create(@Args('input') input: CreateAuthorInput): Author {
     return this.authorsService.create(input);
   }
 
   @Mutation((returns) => Author, { name: 'deleteAuthor' })
-  async delete(@Args('id', { type: () => Int }) id: number): Promise<Author> {
-    const deletedAuthor = await this.authorsService.delete(id);
-    return deletedAuthor;
+  delete(@Args('id', { type: () => Int }) id: number): Author {
+    return this.authorsService.delete(id);
   }
 
   @Mutation((returns) => Author, { name: 'updateAuthor' })
-  async update(@Args('input') input: UpdateAuthorInput): Promise<Author> {
+  update(@Args('input') input: UpdateAuthorInput): Author {
     return this.authorsService.update(input);
   }
 }
