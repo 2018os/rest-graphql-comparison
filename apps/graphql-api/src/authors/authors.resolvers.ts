@@ -12,7 +12,7 @@ export class AuthorsResolver {
 
   @Query((returns) => Author, { name: 'author' })
   // name that generated on schema
-  async getAuthor(
+  async findOneById(
     @Args('id', { type: () => Int }) id: number,
   ): Promise<Author> {
     const author = await this.authorsService.findOneById(id);
@@ -23,14 +23,13 @@ export class AuthorsResolver {
   }
 
   @Query((returns) => [Author], { name: 'authors' })
-  getAllAuthors(): Promise<Author[]> {
+  findAll(): Promise<Author[]> {
     return this.authorsService.findAll();
   }
 
   @Mutation((returns) => Author, { name: 'createAuthor' })
   async create(@Args('input') input: CreateAuthorInput): Promise<Author> {
-    const { firstName, lastName } = input;
-    return this.authorsService.create(firstName, lastName);
+    return this.authorsService.create(input);
   }
 
   @Mutation((returns) => Author, { name: 'deleteAuthor' })
@@ -41,7 +40,6 @@ export class AuthorsResolver {
 
   @Mutation((returns) => Author, { name: 'updateAuthor' })
   async update(@Args('input') input: UpdateAuthorInput): Promise<Author> {
-    const { id, firstName, lastName } = input;
-    return this.authorsService.update(id, firstName, lastName);
+    return this.authorsService.update(input);
   }
 }
