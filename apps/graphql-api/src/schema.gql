@@ -8,6 +8,15 @@ type Author {
   lastName: String
 }
 
+input CreateAuthorInput {
+  firstName: String = "anonymous"
+  lastName: String = "author"
+}
+
+type Mutation {
+  createAuthor(input: CreateAuthorInput!): Author!
+}
+
 type Query {
   author(id: Int!): Author!
   authors: [Author!]!
