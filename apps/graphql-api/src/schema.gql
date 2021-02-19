@@ -3,21 +3,21 @@
 # ------------------------------------------------------
 
 type Author {
-  firstName: String
   id: Int!
+  firstName: String
   lastName: String
 }
 
-input CreateAuthorInput {
-  firstName: String = "anonymous"
-  lastName: String = "author"
+type Query {
+  author(id: Int!): Author!
+  authors: [Author!]!
 }
 
 type Mutation {
   createAuthor(input: CreateAuthorInput!): Author!
 }
 
-type Query {
-  author(id: Int!): Author!
-  authors: [Author!]!
+input CreateAuthorInput {
+  firstName: String = "anonymous"
+  lastName: String = "author"
 }

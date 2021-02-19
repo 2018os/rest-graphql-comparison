@@ -8,7 +8,6 @@ import { AuthorsModule } from './authors/authors.module';
   imports: [
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'apps/graphql-api/src/schema.gql'),
-      sortSchema: true,
     }),
     AuthorsModule,
   ],
