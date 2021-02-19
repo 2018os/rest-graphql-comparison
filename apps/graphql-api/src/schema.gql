@@ -15,9 +15,17 @@ type Query {
 
 type Mutation {
   createAuthor(input: CreateAuthorInput!): Author!
+  deleteAuthor(id: Int!): Author!
+  updateAuthor(input: UpdateAuthorInput!): Author!
 }
 
 input CreateAuthorInput {
   firstName: String = "anonymous"
   lastName: String = "author"
+}
+
+input UpdateAuthorInput {
+  id: Int!
+  firstName: String
+  lastName: String
 }

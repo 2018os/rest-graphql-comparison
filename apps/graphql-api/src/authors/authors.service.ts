@@ -27,4 +27,26 @@ export class AuthorsService {
     this.authors.push(newAuthor);
     return newAuthor;
   }
+
+  async delete(id: number): Promise<Author> {
+    const deletedAuthor = await this.findOneById(id);
+    this.authors = this.authors.filter((author) => author.id !== id);
+    return deletedAuthor;
+  }
+
+  async update(
+    id: number,
+    firstName?: string,
+    lastName?: string,
+  ): Promise<Author> {
+    const findedAuthor = await this.findOneById(id);
+    await this.delete(id);
+    const updatedAuthor = {
+      ...findedAuthor,
+      firstName: firstName || findedAuthor.firstName,
+      lastName: lastName || findedAuthor.lastName,
+    };
+    this.authors.push(updatedAuthor);
+    return updatedAuthor;
+  }
 }
