@@ -12,10 +12,8 @@ export class AuthorsResolver {
 
   @Query((returns) => Author, { name: 'author' })
   // name that generated on schema
-  async findOneById(
-    @Args('id', { type: () => Int }) id: number,
-  ): Promise<Author> {
-    const author = await this.authorsService.findOneById(id);
+  findOneById(@Args('id', { type: () => Int }) id: number): Author {
+    const author = this.authorsService.findOneById(id);
     if (!author) {
       throw new NotFoundException(id);
     }
