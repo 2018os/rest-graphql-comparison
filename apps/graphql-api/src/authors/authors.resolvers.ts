@@ -1,14 +1,27 @@
 import { NotFoundException } from '@nestjs/common';
-import { Resolver, Query, Args, Int, Mutation } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Args,
+  Int,
+  Mutation,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 
-import { Author } from './models/author.model';
+import { Author } from './entities/author.entity';
 import { AuthorsService } from './authors.service';
 import { CreateAuthorInput } from './dto/create-author.input';
 import { UpdateAuthorInput } from './dto/update-author.input';
 
+import { PostsService } from '../posts/posts.service';
+
 @Resolver((of) => Author)
 export class AuthorsResolver {
-  constructor(private readonly authorsService: AuthorsService) {}
+  constructor(
+    private readonly authorsService: AuthorsService,
+    private readonly postsService: PostsService,
+  ) {}
 
   @Query((returns) => Author, { name: 'author' })
   // name that generated on schema
@@ -38,5 +51,11 @@ export class AuthorsResolver {
   @Mutation((returns) => Author, { name: 'updateAuthor' })
   update(@Args('input') input: UpdateAuthorInput): Author {
     return this.authorsService.update(input);
+  }
+
+  @ResolveField()
+  posts(@Parent() author: Author) {
+    const { id } = author;
+    return this.postsService.findAll({ author: id });
   }
 }
