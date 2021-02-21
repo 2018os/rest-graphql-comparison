@@ -8,8 +8,8 @@ import { UpdatePostInput } from './dto/update-post.input';
 export class PostsResolver {
   constructor(private readonly postsService: PostsService) {}
 
-  @Mutation(() => Post)
-  createPost(@Args('createPostInput') createPostInput: CreatePostInput) {
+  @Mutation(() => Post, { name: 'createPost' })
+  create(@Args('createPostInput') createPostInput: CreatePostInput) {
     return this.postsService.create(createPostInput);
   }
 
@@ -19,17 +19,17 @@ export class PostsResolver {
   }
 
   @Query(() => Post, { name: 'post' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.postsService.findOne(id);
+  findOneById(@Args('id', { type: () => Int }) id: number) {
+    return this.postsService.findOneById(id);
   }
 
-  @Mutation(() => Post)
-  updatePost(@Args('updatePostInput') updatePostInput: UpdatePostInput) {
+  @Mutation(() => Post, { name: 'updatePost' })
+  update(@Args('updatePostInput') updatePostInput: UpdatePostInput) {
     return this.postsService.update(updatePostInput.id, updatePostInput);
   }
 
-  @Mutation(() => Post)
-  removePost(@Args('id', { type: () => Int }) id: number) {
-    return this.postsService.remove(id);
+  @Mutation(() => Post, { name: 'deletePost' })
+  delete(@Args('id', { type: () => Int }) id: number) {
+    return this.postsService.delete(id);
   }
 }
