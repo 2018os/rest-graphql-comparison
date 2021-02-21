@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { GraphqlApiModule } from '../src/graphql-api.module';
-import { Author } from '../src/authors/models/author.model';
+import { Author } from '../src/authors/entities/author.entity';
 
 describe('GraphqlApiController (e2e)', () => {
   let app: INestApplication;
