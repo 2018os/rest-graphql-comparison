@@ -17,11 +17,10 @@
     "start-graphql:dev": "nest start graphql-api --watch",
     "start-graphql:debug": "nest start graphql-api --debug --watch",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "jest",
-    "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./apps/rest-api/test/jest-e2e.json"
+    "test-graphql": "jest apps/graphql-api && jest --config ./apps/graphql-api/test/jest-e2e.json",
+    "test-graphql:unit": "jest apps/graphql-api",
+    "test-graphql:e2e": "jest --config ./apps/graphql-api/test/jest-e2e.json --detectOpenHandles"
   },
   "dependencies": {
     "@nestjs/common": "^7.5.1",
