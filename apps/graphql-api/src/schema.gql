@@ -2,15 +2,17 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Post {
+  id: Int!
+  author: Author!
+  content: String!
+}
+
 type Author {
   id: Int!
   firstName: String
   lastName: String
-}
-
-type Post {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  posts: [Post!]
 }
 
 type Query {
@@ -26,7 +28,7 @@ type Mutation {
   updateAuthor(input: UpdateAuthorInput!): Author!
   createPost(createPostInput: CreatePostInput!): Post!
   updatePost(updatePostInput: UpdatePostInput!): Post!
-  removePost(id: Int!): Post!
+  deletePost(id: Int!): Post!
 }
 
 input CreateAuthorInput {
@@ -41,12 +43,12 @@ input UpdateAuthorInput {
 }
 
 input CreatePostInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  author: Int!
+  content: String!
 }
 
 input UpdatePostInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  author: Int
+  content: String!
   id: Int!
 }
