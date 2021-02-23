@@ -1,14 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { NotFoundException } from '@nestjs/common';
+import { NotFoundException, forwardRef } from '@nestjs/common';
 
 import { AuthorsResolver } from './authors.resolvers';
 import { AuthorsService } from './authors.service';
+import { PostsModule } from '../posts/posts.module';
 
 describe('AuthorsResolver', () => {
   let resolver: AuthorsResolver;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [forwardRef(() => PostsModule)],
       providers: [AuthorsResolver, AuthorsService],
     }).compile();
 
@@ -94,6 +96,7 @@ describe('AuthorsResolver', () => {
       try {
         resolver.update({
           id: 999,
+          firstName: 'Updated',
         });
       } catch (e) {
         expect(e).toBeInstanceOf(NotFoundException);
