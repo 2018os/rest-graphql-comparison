@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { AuthorsService } from './authors.service';
 import { Author } from './entities/author.entity';
 
@@ -9,5 +9,10 @@ export class AuthorsController {
   @Get()
   findAll(): Author[] {
     return this.authorsService.findAll();
+  }
+
+  @Get('/:id')
+  findOne(@Param('id') id: number): Author {
+    return this.authorsService.findOne(id);
   }
 }
