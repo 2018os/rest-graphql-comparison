@@ -1,4 +1,7 @@
 import { Module } from '@nestjs/common';
+import { AuthorsModule } from './authors/authors.module';
 
-@Module({})
+@Module({
+  imports: [AuthorsModule],
+})
 export class RestApiModule {}
